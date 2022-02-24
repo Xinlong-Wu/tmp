@@ -66,7 +66,8 @@ word_t atoh(const char* s){
     if (tolower(s[i]) > '9')  
       n = 16 * n + (10 + tolower(s[i]) - 'a');  
     else  
-      n = 16 * n + (tolower(s[i]) - '0');  
+      n = 16 * n + (tolower(s[i]) - '0');
+    Log("addr %lx",n);
   }
   return n;  
 }
@@ -81,8 +82,8 @@ static int cmd_x(char *args) {
 
   if(len != NULL && param!=NULL){
     vaddr_t addr =  atoh(param);
-    int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
     Log("addr %lx",addr);
+    int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
     // if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%lx:\t", addr);
