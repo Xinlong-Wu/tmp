@@ -18,7 +18,7 @@ void isa_reg_display(char* reg) {
   char *cmd = strtok(reg, " ");
   if (cmd == NULL){
     printf("Reg: ");
-    for (int i = 0; i < 32; i++){
+    for (int i = 0; i < 31; i++){
       printf("%s: %lu\t",regs[i], cpu.gpr[i]);
       if(i % 8 == 0)
         printf("\n");
