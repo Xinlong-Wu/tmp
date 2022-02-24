@@ -82,7 +82,7 @@ static int cmd_x(char *args) {
   if(len != NULL && param!=NULL){
     vaddr_t addr =  atoh(param);
     int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
-
+    Log("addr %lx",addr);
     // if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%lx:\t", addr);
