@@ -49,7 +49,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si", "si [N], step in the program"},
+  {"si", "si [N], step in the program", cmd_q},
   {"info", "info [r|w], out put the info of Regesiter or WatchPoint"},
   {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format"},
   {"p", "p [EXPR], out put the value of EXPR"},
