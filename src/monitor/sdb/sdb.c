@@ -60,7 +60,8 @@ static int cmd_x(char *args) {
 
   int len = 0;
   word_t addr = 0;
-  sscanf(args,"%d %lx",&len,&addr);
+  if(args)
+    sscanf(args,"%d %lx",&len,&addr);
 
   Log("addr %d",len);
   Log("addr %lx",addr);
