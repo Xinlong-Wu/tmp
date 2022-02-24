@@ -38,7 +38,8 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_info(char *args) {
-  if (strcmp(args, "r")){
+  Log("cmd_info get arg %s", args);
+  if (*args == 'r'){
     Log("r.");
   }
   
