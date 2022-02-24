@@ -1,6 +1,7 @@
 #include <isa.h>
 #include <memory/paddr.h>
 #include <cpu/cpu.h>
+#include <cpu/decode.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
@@ -56,14 +57,11 @@ static int cmd_info(char *args) {
 extern word_t vaddr_read(vaddr_t addr, int len);
 
 static int cmd_x(char *args) {
-  Log("cmd_x get arg %s", args);
 
   int len = 0;
   paddr_t addr = 0;
   if(args)
     sscanf(args,"%d %x",&len,&addr);
-
-  Log("len %d",len);
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
@@ -72,12 +70,10 @@ static int cmd_x(char *args) {
     
     if(!in_pmem(addr))
       addr += CONFIG_MBASE;
-    Log("addr %x",addr);
     if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%x:\t", addr);
       for(int i = len;i > 0; i-=onceLength){
-        Log("read length %d",onceLength);
         word_t data = vaddr_read(addr, onceLength);
         printf("0x%016lx\t",data);
         if (printCount++ % 4 == 0)
@@ -95,6 +91,24 @@ static int cmd_x(char *args) {
   return 0;
 }
 
+static int cmd_si(char *args){
+  int n = 1;
+  if(args)
+    sscanf(args,"%x",&n);
+  
+  Decode s;
+  s.pc = cpu.pc;
+  s.snpc = cpu.pc;
+  while (n--){
+    isa_exec_once(&s);
+    cpu.pc = s.dnpc;
+  }
+  
+  
+  printf("%s\n", ASNI_FMT(str(Error: valid params), ASNI_FG_RED));
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -107,7 +121,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-  {"si", "si [N], step in the program", cmd_q},
+  {"si", "si [N], step in the program", cmd_si},
   {"info", "info [r|w], out put the info of Regesiter or WatchPoint", cmd_info},
   {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format", cmd_x},
   // {"p", "p [EXPR], out put the value of EXPR"},
