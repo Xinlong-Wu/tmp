@@ -34,18 +34,14 @@ void isa_reg_display(char* reg) {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-  Log("into isa_reg_str2val");
-  // Log("addr of success %x",(unsigned)success);
-  (*success) = false;
-  Log("init success");
+
+  *success = false;
+
   if(strcmp(s, "zero") == 0){
     *success = true;
     return cpu.gpr[0];
   }
 
-  Log("after check zero");
-
-  Log("Reg X*");
   if(*s == 'x'){
     int index = atoi(s+1);
     if (index < 32){
@@ -56,7 +52,6 @@ word_t isa_reg_str2val(const char *s, bool *success) {
   }
 
   for (int i = 0;i < 32; i++){
-    Log("loop %d",i);
     if(strcmp(s, regs[i]) == 0){
       *success = true;
       return cpu.gpr[i];
