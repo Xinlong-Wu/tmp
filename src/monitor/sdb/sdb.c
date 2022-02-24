@@ -46,6 +46,10 @@ static int cmd_info(char *args) {
     Log("show Reg %s", args);
     isa_reg_display(args);
   }
+  else if (strcmp(cmd, "w") == 0){
+    Log("Show WatchPoint %s",args);
+  }
+  
   
   return 0;
 }

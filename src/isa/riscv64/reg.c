@@ -16,6 +16,14 @@ void isa_reg_display(char* reg) {
   Log("isa_reg_display get arg %s", reg);
 
   char *cmd = strtok(reg, " ");
+  if (cmd == NULL){
+    printf("Reg: ");
+    for (int i = 0; i < 32; i++){
+      printf("%s: %lu\t",regs[i], cpu.gpr[i]);
+    }
+    printf("\n");
+  }
+
   if(strcmp(cmd, "zero") == 0){
     Log("Display $0");
     printf("Reg $0: %lu\n",cpu.gpr[gpr_index]);
