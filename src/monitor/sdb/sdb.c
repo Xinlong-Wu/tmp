@@ -59,20 +59,22 @@ static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
   int len = 0;
-  word_t addr = 0;
+  paddr_t addr = 0;
   if(args)
-    sscanf(args,"%d %lx",&len,&addr);
+    sscanf(args,"%d %x",&len,&addr);
 
   Log("addr %d",len);
-  Log("addr %lx",addr);
+  Log("addr %x",addr);
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
-    // if(in_pmem(addr)){
+    if(in_pmem(addr))
+      addr = host_to_guest((uint8_t*)&addr);
+    if(in_pmem(addr)){
       int printCount = 0;
-      printf("0x%lx:\t", addr);
+      printf("0x%x:\t", addr);
       for(int i = len;i > 0; i-=onceLength){
-        word_t data = vaddr_read(addr, onceLength);
+        word_t data = paddr_read(addr, onceLength);
         printf("0x%016lx\t",data);
         if (printCount++ % 4 == 0)
           printf("\n\t");
@@ -80,10 +82,10 @@ static int cmd_x(char *args) {
         while (onceLength > i)
           onceLength/=2;
       }
-    // }
-    // else
-    //   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
-    // return 0;
+    }
+    else
+      printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
+    return 0;
   }
   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
   return 0;
