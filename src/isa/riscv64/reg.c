@@ -16,14 +16,14 @@ void isa_reg_display(char* reg) {
   Log("isa_reg_display get arg %s", reg);
 
   char *cmd = strtok(reg, " ");
-  if(strcmp(cmd, "zero")){
+  if(strcmp(cmd, "zero") == 0){
     Log("Display $0");
     return;
   }
   
   for (;gpr_index < 32; gpr_index++){
-    if(strcmp(cmd, regs[gpr_index])){
-      Log("Reg %s: %lud", regs[gpr_index], cpu.gpr[gpr_index]);
+    if(strcmp(cmd, regs[gpr_index]) == 0){
+      Log("Reg %s: %lu", regs[gpr_index], cpu.gpr[gpr_index]);
     }
   }
   

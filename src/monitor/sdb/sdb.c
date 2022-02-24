@@ -42,7 +42,7 @@ static int cmd_info(char *args) {
   char *cmd = strtok(args, " ");
   args = cmd + strlen(cmd) +1;
 
-  if (*cmd == 'r'){
+  if (strcmp(cmd,"r") == 0){
     Log("show Reg %s", args);
     isa_reg_display(args);
   }
