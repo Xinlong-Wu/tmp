@@ -39,8 +39,10 @@ static int cmd_q(char *args) {
 
 static int cmd_info(char *args) {
   Log("cmd_info get arg %s", args);
-  if (strcmp(args,"r")){
-    Log("r.");
+  char *cmd = strtok(args, " ");
+  if (strcmp(cmd, "r")){
+    Log("r");
+    isa_reg_display();
   }
   
   return 0;
