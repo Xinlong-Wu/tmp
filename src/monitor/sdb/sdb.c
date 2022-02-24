@@ -67,7 +67,7 @@ static int cmd_x(char *args) {
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
-    if(in_pmem(addr))
+    if(!in_pmem(addr))
       addr = host_to_guest((uint8_t*)&addr);
     Log("addr %x",addr);
     if(in_pmem(addr)){
