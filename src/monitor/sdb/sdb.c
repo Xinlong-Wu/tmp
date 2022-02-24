@@ -67,6 +67,9 @@ static int cmd_x(char *args) {
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
+    if (onceLength == 0)
+      onceLength = 1;
+    
     if(!in_pmem(addr))
       addr += CONFIG_MBASE;
     Log("addr %x",addr);
