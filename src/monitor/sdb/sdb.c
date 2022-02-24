@@ -53,41 +53,24 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-word_t atoh(const char* s){
-  int i;  
-  word_t n = 0;
-
-  if (s[0] == '0' && (s[1]=='x' || s[1]=='X'))
-    i = 2;  
-  else
-    i = 0;
-
-  for(;(s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >='A' && s[i] <= 'Z');++i){  
-    if (tolower(s[i]) > '9')  
-      n = 16 * n + (10 + tolower(s[i]) - 'a');  
-    else  
-      n = 16 * n + (tolower(s[i]) - '0');
-  }
-  return n;  
-}
-
 extern word_t vaddr_read(vaddr_t addr, int len);
 
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
-  char *len = strtok(args, " ");
-  char *param = strtok(args, " ");
-  Log("addr %s",param);
+  int len = 0;
+  word_t addr = 0;
+  sscanf(args,"%d %lx",&len,&addr);
 
-  if(len != NULL && param!=NULL){
-    vaddr_t addr =  atoh(param);
-    Log("addr %lx",addr);
-    int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
+  Log("addr %d",len);
+  Log("addr %lx",addr);
+
+  if(len != 0 && addr!=0){
+    int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
     // if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%lx:\t", addr);
-      for(int i = atoi(len);i > 0; i-=onceLength){
+      for(int i = len;i > 0; i-=onceLength){
         word_t data = vaddr_read(addr, onceLength);
         printf("0x%016lx\t",data);
         if (printCount++ % 4 == 0)
