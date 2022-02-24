@@ -35,8 +35,8 @@ void isa_reg_display(char* reg) {
 
 word_t isa_reg_str2val(const char *s, bool *success) {
   Log("into isa_reg_str2val");
-
-  *success = false;
+  // Log("addr of success %x",(unsigned)success);
+  (*success) = false;
   Log("init success");
   if(strcmp(s, "zero") == 0){
     *success = true;
