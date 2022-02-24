@@ -63,13 +63,13 @@ static int cmd_x(char *args) {
   if(args)
     sscanf(args,"%d %x",&len,&addr);
 
-  Log("addr %d",len);
-  Log("addr %x",addr);
+  Log("len %d",len);
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
     if(in_pmem(addr))
       addr = host_to_guest((uint8_t*)&addr);
+    Log("addr %x",addr);
     if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%x:\t", addr);
