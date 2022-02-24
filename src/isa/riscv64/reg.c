@@ -25,8 +25,6 @@ void isa_reg_display(char* reg) {
     return;
   }
 
-  Log("22");
-
   bool *isSuccess = false;
   word_t res = isa_reg_str2val(cmd, isSuccess);
 
@@ -38,7 +36,7 @@ void isa_reg_display(char* reg) {
 word_t isa_reg_str2val(const char *s, bool *success) {
 
   *success = false;
-
+    Log("22");
   if(strcmp(s, "zero") == 0){
     *success = true;
     return cpu.gpr[0];
