@@ -67,7 +67,6 @@ word_t atoh(const char* s){
       n = 16 * n + (10 + tolower(s[i]) - 'a');  
     else  
       n = 16 * n + (tolower(s[i]) - '0');
-    Log("addr %lx",n);
   }
   return n;  
 }
@@ -79,6 +78,7 @@ static int cmd_x(char *args) {
 
   char *len = strtok(args, " ");
   char *param = strtok(args, " ");
+  Log("addr %s",param);
 
   if(len != NULL && param!=NULL){
     vaddr_t addr =  atoh(param);
