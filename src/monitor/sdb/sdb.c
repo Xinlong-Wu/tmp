@@ -38,7 +38,11 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_info(char *args) {
-  return -1;
+  if (strcmp(args, "r")){
+    Log("r.");
+  }
+  
+  return 0;
 }
 
 static int cmd_help(char *args);
