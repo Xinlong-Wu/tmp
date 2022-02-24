@@ -68,7 +68,7 @@ static int cmd_x(char *args) {
 
   if(len != 0 && addr!=0){
     int onceLength = sizeof(word_t) < len ? sizeof(word_t) : (len>>1)<<1;
-    if(in_pmem(addr)){
+    // if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%lx:\t", addr);
       for(int i = len;i > 0; i-=onceLength){
@@ -80,10 +80,10 @@ static int cmd_x(char *args) {
         while (onceLength > i)
           onceLength/=2;
       }
-    }
-    else
-      printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
-    return 0;
+    // }
+    // else
+    //   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
+    // return 0;
   }
   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
   return 0;
