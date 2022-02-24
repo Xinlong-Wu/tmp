@@ -11,7 +11,6 @@ const char *regs[] = {
 extern riscv64_CPU_state cpu;
 
 void isa_reg_display(char* reg) {
-  Log("isa_reg_display get arg %s", reg);
 
   char *cmd = strtok(reg, " ");
   if (cmd == NULL){
@@ -24,7 +23,7 @@ void isa_reg_display(char* reg) {
     printf("\n");
     return;
   }
-  Log("before isa_reg_str2val");
+
   bool isSuccess = false;
   word_t res = isa_reg_str2val(cmd, &isSuccess);
 

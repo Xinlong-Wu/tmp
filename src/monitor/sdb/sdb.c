@@ -43,7 +43,6 @@ static int cmd_info(char *args) {
   args = cmd + strlen(cmd) +1;
 
   if (strcmp(cmd,"r") == 0){
-    Log("show Reg %s", args);
     isa_reg_display(args);
   }
   else if (strcmp(cmd, "w") == 0){
