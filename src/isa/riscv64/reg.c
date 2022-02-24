@@ -31,7 +31,7 @@ void isa_reg_display(char* reg) {
   if(isSuccess)
     printf("Reg %s: %lu\n", cmd, res);
   else
-    printf("%s\n", ASNI_FMT(str("Error: wrong register."), ASNI_FG_RED));
+    printf("%s\n", ASNI_FMT(str(Error: wrong register.), ASNI_FG_RED));
 
   return;
 }
