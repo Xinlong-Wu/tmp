@@ -34,7 +34,7 @@ void isa_reg_display(char* reg) {
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
-  int gpr_index = 0;
+
   *success = false;
 
   if(strcmp(s, "zero") == 0){
@@ -51,12 +51,13 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     return 0;
   }
 
-  for (;gpr_index < 32; gpr_index++){
-    if(strcmp(s, regs[gpr_index]) == 0){
+  for (int i = 0;i < 32; i++){
+    Log("loop %d",i);
+    if(strcmp(s, regs[i]) == 0){
       *success = true;
-      return cpu.gpr[gpr_index];
+      return cpu.gpr[i];
     }
   }
-  Log("done");
+  
   return 0;
 }
