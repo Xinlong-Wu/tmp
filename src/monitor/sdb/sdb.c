@@ -103,9 +103,6 @@ static int cmd_si(char *args){
     isa_exec_once(&s);
     cpu.pc = s.dnpc;
   }
-  
-  
-  printf("%s\n", ASNI_FMT(str(Error: valid params), ASNI_FG_RED));
   return 0;
 }
 
