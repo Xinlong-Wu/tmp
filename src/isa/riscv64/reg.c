@@ -11,8 +11,6 @@ const char *regs[] = {
 extern riscv64_CPU_state cpu;
 
 void isa_reg_display(char* reg) {
-  int gpr_index = 0;
-
   Log("isa_reg_display get arg %s", reg);
 
   char *cmd = strtok(reg, " ");
@@ -20,34 +18,44 @@ void isa_reg_display(char* reg) {
     printf("Reg: ");
     for (int i = 0; i < 32; i++){
       printf("%s: %lu\t",regs[i], cpu.gpr[i]);
-      if(i % 7 == 0)
+      if(i % 8 == 0)
         printf("\n");
     }
     printf("\n");
     return;
   }
 
-  if(strcmp(cmd, "zero") == 0){
-    Log("Display $0");
-    printf("Reg $0: %lu\n",cpu.gpr[gpr_index]);
-    return;
-  }
-  
-  for (;gpr_index < 32; gpr_index++){
-    if(strcmp(cmd, regs[gpr_index]) == 0){
-      printf("Reg %s: %lu\n", regs[gpr_index], cpu.gpr[gpr_index]);
-      return;
-    }
-  }
-  
-  if(*cmd == 'x'){
-    cmd++;
-    int index = atoi(cmd);
-    printf("Reg %s: %lu\n", regs[index], cpu.gpr[index]);
-  }
+  word_t res = isa_reg_str2val(cmd, NULL);
+
+  printf("Reg %s: %lu\n", cmd, res);
+
   return;
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  int gpr_index = 0;
+  *success = false;
+
+  if(strcmp(s, "zero") == 0){
+    *success = true;
+    return cpu.gpr[0];
+  }
+
+  if(*s == 'x'){
+    int index = atoi(s+1);
+    if (index < 32){
+      *success = true;
+      return cpu.gpr[index];
+    }
+    return 0;
+  }
+
+  for (;gpr_index < 32; gpr_index++){
+    if(strcmp(s, regs[gpr_index]) == 0){
+      *success = true;
+      return cpu.gpr[gpr_index];
+    }
+  }
+
   return 0;
 }

@@ -47,10 +47,25 @@ static int cmd_info(char *args) {
     isa_reg_display(args);
   }
   else if (strcmp(cmd, "w") == 0){
-    Log("Show WatchPoint %s",args);
+    Log("TBD: Show WatchPoint %s",args);
   }
-  
-  
+
+  return 0;
+}
+
+static int cmd_x(char *args) {
+  Log("cmd_info get arg %s", args);
+  char *cmd = strtok(args, " ");
+  args = cmd + strlen(cmd) +1;
+
+  if (strcmp(cmd,"r") == 0){
+    Log("show Reg %s", args);
+    isa_reg_display(args);
+  }
+  else if (strcmp(cmd, "w") == 0){
+    Log("TBD: Show WatchPoint %s",args);
+  }
+
   return 0;
 }
 
@@ -68,10 +83,10 @@ static struct {
   /* TODO: Add more commands */
   {"si", "si [N], step in the program", cmd_q},
   {"info", "info [r|w], out put the info of Regesiter or WatchPoint", cmd_info},
-  {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format"},
-  {"p", "p [EXPR], out put the value of EXPR"},
-  {"w", "w [EXPR], set WatchPoint stop the program if the value of EXPR has changed"},
-  {"d", "d [N], delete WatchPoint witch id is N"},
+  {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format", cmd_x},
+  // {"p", "p [EXPR], out put the value of EXPR"},
+  // {"w", "w [EXPR], set WatchPoint stop the program if the value of EXPR has changed"},
+  // {"d", "d [N], delete WatchPoint witch id is N"},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
