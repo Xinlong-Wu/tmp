@@ -18,12 +18,13 @@ void isa_reg_display(char* reg) {
   char *cmd = strtok(reg, " ");
   if(strcmp(cmd, "zero") == 0){
     Log("Display $0");
+    printf("Reg $0: %lu\n",cpu.gpr[gpr_index]);
     return;
   }
   
   for (;gpr_index < 32; gpr_index++){
     if(strcmp(cmd, regs[gpr_index]) == 0){
-      Log("Reg %s: %lu", regs[gpr_index], cpu.gpr[gpr_index]);
+      printf("Reg %s: %lu\n", regs[gpr_index], cpu.gpr[gpr_index]);
     }
   }
   
