@@ -1,4 +1,5 @@
 #include <isa.h>
+#include <memory/paddr.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -71,7 +72,7 @@ word_t atoh(const char* s){
 }
 
 extern word_t vaddr_read(vaddr_t addr, int len);
-extern bool in_pmem(paddr_t addr);
+
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
