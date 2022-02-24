@@ -25,7 +25,8 @@ void isa_reg_display(char* reg) {
     return;
   }
 
-  word_t res = isa_reg_str2val(cmd, NULL);
+  bool *isSuccess = false;
+  word_t res = isa_reg_str2val(cmd, isSuccess);
 
   printf("Reg %s: %lu\n", cmd, res);
 
