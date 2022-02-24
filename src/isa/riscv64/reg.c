@@ -25,6 +25,8 @@ void isa_reg_display(char* reg) {
     return;
   }
 
+  Log("22");
+
   bool *isSuccess = false;
   word_t res = isa_reg_str2val(cmd, isSuccess);
 
