@@ -53,7 +53,7 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-extern word_t pmem_read(vaddr_t addr, int len);
+extern word_t pmem_read(paddr_t addr, int len);
 
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
