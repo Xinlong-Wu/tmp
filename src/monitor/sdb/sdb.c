@@ -52,18 +52,29 @@ static int cmd_info(char *args) {
   return 0;
 }
 
-static int cmd_x(char *args) {
-  Log("cmd_info get arg %s", args);
-  char *cmd = strtok(args, " ");
-  args = cmd + strlen(cmd) +1;
+word_t atoh(const char* s){
+  int i;  
+  word_t n = 0;
 
-  if (strcmp(cmd,"r") == 0){
-    Log("show Reg %s", args);
-    isa_reg_display(args);
+  if (s[0] == '0' && (s[1]=='x' || s[1]=='X'))
+    i = 2;  
+  else
+    i = 0;
+
+  for(;(s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'z') || (s[i] >='A' && s[i] <= 'Z');++i){  
+    if (tolower(s[i]) > '9')  
+      n = 16 * n + (10 + tolower(s[i]) - 'a');  
+    else  
+      n = 16 * n + (tolower(s[i]) - '0');  
   }
-  else if (strcmp(cmd, "w") == 0){
-    Log("TBD: Show WatchPoint %s",args);
-  }
+  return n;  
+}
+
+static int cmd_x(char *args) {
+  Log("cmd_x get arg %s", args);
+
+  // vaddr_t res =  atoh();
+  
 
   return 0;
 }
