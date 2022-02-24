@@ -9,7 +9,8 @@ const char *regs[] = {
 };
 
 void isa_reg_display(char* reg) {
-
+  Log("isa_reg_display get arg %s", reg);
+  
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
