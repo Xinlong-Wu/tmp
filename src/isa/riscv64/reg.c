@@ -42,6 +42,8 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     return cpu.gpr[0];
   }
 
+  Log("after check zero");
+
   Log("Reg X*");
   if(*s == 'x'){
     int index = atoi(s+1);
