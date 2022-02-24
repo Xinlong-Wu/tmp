@@ -37,6 +37,10 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_info(char *args) {
+  return -1;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -50,7 +54,7 @@ static struct {
 
   /* TODO: Add more commands */
   {"si", "si [N], step in the program", cmd_q},
-  {"info", "info [r|w], out put the info of Regesiter or WatchPoint"},
+  {"info", "info [r|w], out put the info of Regesiter or WatchPoint", cmd_info},
   {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format"},
   {"p", "p [EXPR], out put the value of EXPR"},
   {"w", "w [EXPR], set WatchPoint stop the program if the value of EXPR has changed"},
