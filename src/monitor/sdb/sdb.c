@@ -74,6 +74,7 @@ static int cmd_x(char *args) {
       int printCount = 0;
       printf("0x%x:\t", addr);
       for(int i = len;i > 0; i-=onceLength){
+        Log("read length %d",onceLength);
         word_t data = vaddr_read(addr, onceLength);
         printf("0x%016lx\t",data);
         if (printCount++ % 4 == 0)
