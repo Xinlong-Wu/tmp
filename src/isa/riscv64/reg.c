@@ -25,10 +25,16 @@ void isa_reg_display(char* reg) {
   for (;gpr_index < 32; gpr_index++){
     if(strcmp(cmd, regs[gpr_index]) == 0){
       printf("Reg %s: %lu\n", regs[gpr_index], cpu.gpr[gpr_index]);
+      return;
     }
   }
   
-  
+  if(*cmd == 'x'){
+    cmd++;
+    int index = atoi(cmd);
+    printf("Reg %s: %lu\n", regs[index], cpu.gpr[index]);
+  }
+  return;
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
