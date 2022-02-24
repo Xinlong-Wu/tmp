@@ -73,12 +73,14 @@ word_t atoh(const char* s){
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
+  char *len = strtok(args, " ");
   char *param = strtok(args, " ");
 
-  vaddr_t addr =  atoh(param);
-
-  Log("addr %lx", addr);
-  
+  if(len != NULL && param!=NULL){
+    vaddr_t addr =  atoh(param);
+    Log("addr %lx", addr);
+    isa_mmu_check(addr, atoi(len), MEM_TYPE_READ);
+  }
 
   return 0;
 }
