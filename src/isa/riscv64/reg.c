@@ -8,8 +8,25 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
+extern riscv64_CPU_state cpu;
+
 void isa_reg_display(char* reg) {
+  int gpr_index = 0;
+
   Log("isa_reg_display get arg %s", reg);
+
+  char *cmd = strtok(reg, " ");
+  if(strcmp(cmd, "zero")){
+    Log("Display $0");
+    return;
+  }
+  
+  for (;gpr_index < 32; gpr_index++){
+    if(strcmp(cmd, regs[gpr_index])){
+      Log("Reg %s: %lud", regs[gpr_index], cpu.gpr[gpr_index]);
+    }
+  }
+  
   
 }
 
