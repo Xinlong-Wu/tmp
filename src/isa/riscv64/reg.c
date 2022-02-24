@@ -37,6 +37,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
   Log("into isa_reg_str2val");
 
   *success = false;
+  Log("init success");
   if(strcmp(s, "zero") == 0){
     *success = true;
     return cpu.gpr[0];
