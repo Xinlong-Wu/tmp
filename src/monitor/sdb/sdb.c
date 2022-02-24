@@ -73,7 +73,11 @@ word_t atoh(const char* s){
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
-  // vaddr_t res =  atoh();
+  char *param = strtok(args, " ");
+
+  vaddr_t addr =  atoh(param);
+
+  Log("addr %lx", addr);
   
 
   return 0;
