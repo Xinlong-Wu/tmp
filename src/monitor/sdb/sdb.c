@@ -49,7 +49,12 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
 
   /* TODO: Add more commands */
-
+  {"si", "si [N], step in the program"},
+  {"info", "info [r|w], out put the info of Regesiter or WatchPoint"},
+  {"x", "x [N] [EXPR] , out put N Bite data from value of EXPR by sixteen format"},
+  {"p", "p [EXPR], out put the value of EXPR"},
+  {"w", "w [EXPR], set WatchPoint stop the program if the value of EXPR has changed"},
+  {"d", "d [N], delete WatchPoint witch id is N"},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
