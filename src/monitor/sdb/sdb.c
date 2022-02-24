@@ -83,7 +83,7 @@ static int cmd_x(char *args) {
     vaddr_t addr =  atoh(param);
     int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
 
-    if(in_pmem(addr)){
+    // if(in_pmem(addr)){
       int printCount = 0;
       printf("0x%lx:\t", addr);
       for(int i = atoi(len);i > 0; i-=onceLength){
@@ -95,9 +95,9 @@ static int cmd_x(char *args) {
         while (onceLength > i)
           onceLength/=2;
       }
-    }
-    else
-      printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
+    // }
+    // else
+    //   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
     return 0;
   }
   printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
