@@ -70,6 +70,8 @@ word_t atoh(const char* s){
   return n;  
 }
 
+extern word_t vaddr_read(vaddr_t addr, int len);
+extern bool in_pmem(paddr_t addr);
 static int cmd_x(char *args) {
   Log("cmd_x get arg %s", args);
 
@@ -78,10 +80,26 @@ static int cmd_x(char *args) {
 
   if(len != NULL && param!=NULL){
     vaddr_t addr =  atoh(param);
-    Log("addr %lx", addr);
-    isa_mmu_check(addr, atoi(len), MEM_TYPE_READ);
-  }
+    int onceLength = sizeof(word_t) < atoi(len) ? sizeof(word_t) : (atoi(len)>>1)<<1;
 
+    if(in_pmem(addr)){
+      int printCount = 0;
+      printf("0x%lx:\t", addr);
+      for(int i = atoi(len);i > 0; i-=onceLength){
+        word_t data = vaddr_read(addr, onceLength);
+        printf("0x%016lx\t",data);
+        if (printCount++ % 4 == 0)
+          printf("\n\t");
+        addr+=onceLength;
+        while (onceLength > i)
+          onceLength/=2;
+      }
+    }
+    else
+      printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
+    return 0;
+  }
+  printf("%s\n", ASNI_FMT(str(Error: valid mem address.), ASNI_FG_RED));
   return 0;
 }
 
