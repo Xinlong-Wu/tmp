@@ -28,7 +28,10 @@ void isa_reg_display(char* reg) {
   bool isSuccess = false;
   word_t res = isa_reg_str2val(cmd, &isSuccess);
 
-  printf("Reg %s: %lu\n", cmd, res);
+  if(isSuccess)
+    printf("Reg %s: %lu\n", cmd, res);
+  else
+    printf("%s\n", ASNI_FMT(str("Error: wrong reg %s."), ASNI_FG_RED));
 
   return;
 }
